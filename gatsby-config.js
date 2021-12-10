@@ -24,8 +24,7 @@ module.exports = {
       options: {
         apiURL: `http://localhost:1337`,
         queryLimit: 1000, // Default to 100
-        contentTypes: [`job`],
-        // Possibility to login with a strapi user, when content types are not publically available (optional).
+        collectionTypes: [`api/jobs`],
       },
     },
   ],
