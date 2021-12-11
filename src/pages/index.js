@@ -5,7 +5,7 @@ import Services from "../components/Services"
 import Jobs from "../components/Jobs"
 import Projects from "../components/Projects"
 import Seo from "../components/Seo"
-import Sample from "../components/Sample"
+
 const IndexPage = () => {
   return (
     <>
@@ -13,7 +13,7 @@ const IndexPage = () => {
       <main>
         <Hero />
         <Services />
-        <Sample />
+        <Jobs />
       </main>
     </>
   )
