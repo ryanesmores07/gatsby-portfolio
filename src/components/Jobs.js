@@ -6,18 +6,16 @@ import { Link } from "gatsby"
 
 const query = graphql`
   {
-    info: allStrapiApiJobs {
-      nodes {
-        data {
-          attributes {
-            position
-            company
-            date
-            desc1
-            desc2
-            desc3
-            desc4
-          }
+    info: strapiApiJobs {
+      data {
+        attributes {
+          position
+          company
+          date
+          desc1
+          desc2
+          desc3
+          desc4
         }
       }
     }
@@ -25,10 +23,14 @@ const query = graphql`
 `
 
 const Jobs = () => {
-  const item = useStaticQuery(query)
+  const data = useStaticQuery(query)
   const {
-    info: { nodes: jobs },
-  } = item //destructure everything from here ok?
+    info: { data: jobs },
+  } = data
+  const [value, setValue] = React.useState(0)
+  const {
+    attributes: { company, position, date, desc1, desc2, desc3, desc4 },
+  } = jobs[value]
 
   return (
     <section className="section jobs">
@@ -36,57 +38,35 @@ const Jobs = () => {
       <div className="jobs-center">
         {/* btn container */}
         <div className="btn-container">
-          {jobs.forEach(job => {
-            const items = job.data
-            items.map((item, index) => {
-              const { company } = item.attributes
-              console.log(company)
-              return (
-                <button key={index} className="job-btn">
-                  <h4>{company}</h4>
-                </button>
-              )
-            })
+          {jobs.map((item, index) => {
+            return (
+              <button
+                key={index}
+                className={index === value ? "job-btn active-btn" : "job-btn"}
+                onClick={() => setValue(index)}
+              >
+                {item.attributes.company}
+              </button>
+            )
           })}
-          <button className="job-btn">
-            <h4>yawa</h4>
-          </button>
         </div>
         {/* job info */}
         <article className="job-info">
-          {jobs.map((job, index) => {
-            const {
-              attributes: {
-                position,
-                company,
-                date,
-                desc1,
-                desc2,
-                desc3,
-                desc4,
-              },
-            } = job.data[0]
-
-            return (
-              <>
-                <h3>{position}</h3>
-                <h4>{company}</h4>
-                <p className="job-date">{date}</p>
-                <div className="job-desc">
-                  <FaAngleDoubleRight className="job-icon"></FaAngleDoubleRight>
-                  <p>{desc1}</p>
-                </div>
-                <div className="job-desc">
-                  <FaAngleDoubleRight className="job-icon"></FaAngleDoubleRight>
-                  <p>{desc2}</p>
-                </div>
-                <div className="job-desc">
-                  <FaAngleDoubleRight className="job-icon"></FaAngleDoubleRight>
-                  <p>{desc3}</p>
-                </div>
-              </>
-            )
-          })}
+          <h3>{position}</h3>
+          <h4>{company}</h4>
+          <p className="job-date">{date}</p>
+          <div className="job-desc">
+            <FaAngleDoubleRight className="job-icon"></FaAngleDoubleRight>
+            <p>{desc1}</p>
+          </div>
+          <div className="job-desc">
+            <FaAngleDoubleRight className="job-icon"></FaAngleDoubleRight>
+            <p>{desc2}</p>
+          </div>
+          <div className="job-desc">
+            <FaAngleDoubleRight className="job-icon"></FaAngleDoubleRight>
+            <p>{desc3}</p>
+          </div>
         </article>
       </div>
       <Link to="/about" className="btn center-btn">
@@ -97,3 +77,18 @@ const Jobs = () => {
 }
 
 export default Jobs
+
+{
+  /* {jobs.forEach(job => {
+            const items = job.data
+            items.map((item, index) => {
+              const { company } = item.attributes
+
+              return (
+                <button key={index} className="job-btn">
+                  <h4>{item.attributes.company}</h4>
+                </button>
+              )
+            })
+          })} */
+}
