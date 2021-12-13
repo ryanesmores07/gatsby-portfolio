@@ -8,11 +8,12 @@ const Projects = ({ projects, title, showLink, images }) => {
       <Title title={title} />
       <div className="section-center projects-center">
         {projects.map((project, index) => {
+          const { attributes } = project
           return (
             <Project
               key={project.id}
               index={index}
-              {...project}
+              project={attributes}
               images={images}
             />
           )

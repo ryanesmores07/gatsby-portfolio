@@ -12,9 +12,8 @@ const IndexPage = ({ data }) => {
   } = data
 
   const {
-    info: { nodes: projects },
+    info: { data: projects },
   } = data
-  console.log(projects)
 
   return (
     <>
@@ -36,25 +35,19 @@ const IndexPage = ({ data }) => {
 
 export const query = graphql`
   {
-    info: allStrapiApiProjects(
-      filter: {
-        data: { elemMatch: { attributes: { featured: { eq: true } } } }
-      }
-    ) {
-      nodes {
-        data {
-          attributes {
-            title
-            description
-            featured
-            github
-            slug
-            stack1
-            stack2
-            url
-          }
-          id
+    info: strapiApiProjects {
+      data {
+        attributes {
+          description
+          featured
+          github
+          slug
+          stack1
+          stack2
+          title
+          url
         }
+        id
       }
     }
     allFile(filter: { extension: { eq: "jpg" } }) {

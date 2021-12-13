@@ -27,6 +27,7 @@ const Jobs = () => {
   const {
     info: { data: jobs },
   } = data
+
   const [value, setValue] = React.useState(0)
   const {
     attributes: { company, position, date, desc1, desc2, desc3, desc4 },
